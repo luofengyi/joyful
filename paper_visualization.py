@@ -112,10 +112,10 @@ def plot_all_panels(save_path="paper_figure.png", dpi=400, show=False):
     ax2.set_title("(B) IEMOCAP (4-way) Classification", fontsize=11, fontweight="bold", y=-0.22)
 
     # -----------------------------
-    # (C) 折线图
+    # (C) 直方图（柱状图）
     # -----------------------------
     ax3 = fig.add_subplot(gs[0, 2])
-    ax3.plot(window_sizes, weighted_f1, color="#2a9d55", marker="s", linewidth=2.2, markersize=5)
+    ax3.bar(window_sizes, weighted_f1, color="#2a9d55", width=0.72, alpha=0.9)
     ax3.set_xlim(1, 11)
     ax3.set_ylim(0.81, 0.86)
     ax3.set_xticks(window_sizes)

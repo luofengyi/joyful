@@ -56,7 +56,7 @@ def plot_all_panels(save_path="paper_figure.png", dpi=400, show=False):
     # 2) 统一绘图风格
     # -----------------------------
     sns.set_style("white")
-    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["font.family"] = "DejaVu Serif"
     plt.rcParams["axes.labelweight"] = "bold"
     plt.rcParams["axes.titleweight"] = "bold"
 
@@ -147,7 +147,8 @@ def plot_all_panels(save_path="paper_figure.png", dpi=400, show=False):
     ax4.tick_params(axis="y", rotation=0)
     ax4.set_title("(D) IEMOCAP (4-way) Error Visualization", fontsize=11, fontweight="bold", y=-0.28)
 
-    plt.tight_layout()
+    # 3D Axes 与 tight_layout 兼容性较差，使用手动边距避免警告
+    fig.subplots_adjust(left=0.03, right=0.98, top=0.95, bottom=0.22, wspace=0.35)
     plt.savefig(save_path, dpi=dpi, bbox_inches="tight")
     if show:
         plt.show()

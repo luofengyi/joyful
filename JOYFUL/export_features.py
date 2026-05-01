@@ -1,12 +1,33 @@
 import argparse
 import os
 import pickle
+import sys
+import types
 
 import numpy as np
 import torch
 from tqdm import tqdm
 
 import joyful
+
+
+def patch_torch_geometric_imports():
+    """
+    兼容不同 torch_geometric 版本内部模块路径变化。
+    某些 checkpoint 反序列化时会查找旧路径：
+    torch_geometric.nn.conv.utils.inspector
+    """
+    legacy_mod = "torch_geometric.nn.conv.utils.inspector"
+    if legacy_mod in sys.modules:
+        return
+    try:
+        from torch_geometric.inspector import Inspector
+    except Exception:
+        return
+
+    mod = types.ModuleType(legacy_mod)
+    mod.Inspector = Inspector
+    sys.modules[legacy_mod] = mod
 
 
 def load_pkl(file_path):
@@ -36,6 +57,7 @@ def resolve_data_path(stored_args):
 
 
 def main(args):
+    patch_torch_geometric_imports()
     ckpt = torch.load(args.checkpoint, map_location=args.device)
     stored_args = ckpt["args"]
     stored_args.device = args.device

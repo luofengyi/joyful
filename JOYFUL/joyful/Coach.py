@@ -98,13 +98,14 @@ class Coach:
                         + ".pt",
                     )
                 else:
+                    dataset_tag = "iemocap_6" if self.args.dataset == "iemocap" else self.args.dataset
                     torch.save({
                         "args": self.args,
                         'modelN_state_dict': self.model,
                         'modelF_state_dict': self.modelF,
                         'lr': self.scheduler._last_lr
                     }, "model_checkpoints/"
-                        + self.args.dataset
+                        + dataset_tag
                         + "_best_dev_f1_model_"
                         + self.args.modalities
                         + ".pt")

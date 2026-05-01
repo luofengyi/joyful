@@ -85,7 +85,7 @@ def plot_tsne(
         class_names = [str(x) for x in unique_labels]
     palette = build_palette(len(unique_labels))
 
-    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["font.family"] = "DejaVu Serif"
     fig, ax = plt.subplots(figsize=(8.2, 6.2), facecolor="#efeff4")
     ax.set_facecolor("#efeff4")
 
